@@ -1,8 +1,8 @@
-FROM centos:latest
+FROM Ubuntu:latest
 
 #MAINTAINER NewstarCorporation
 
-RUN yum -y install httpd
+RUN apt-get install httpd -y
 
 COPY index.html /var/www/html/
 
