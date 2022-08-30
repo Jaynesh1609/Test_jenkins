@@ -20,15 +20,15 @@ pipeline {
       sh 'docker version'
       sh 'docker build -t jenkins-docker .'
       sh 'docker image list'
-      sh 'docker tag jenkins-docker jaynesh169/jenkins-docker-demo'
+      sh 'docker tag jenkins-docker {$USERNAME}/jenkins-docker-demo'
     }  
     
     withCredentials([string(credentialsId: 'DOCKER_HUB_PASSWORD', variable: 'PASSWORD')]) {
-        sh 'docker login -u jaynesh169 -p $PASSWORD'
+        sh 'docker login -u {$USERNAME} -p $PASSWORD'
     }
 
     stage("Push Image to Docker Hub"){
-        sh 'docker push  jaynesh169/jenkins-docker:jenkins-docker'
+        sh 'docker push  {$USERNAME}/jenkins-docker:jenkins-docker'
     }
     stage('Deploy to GKE') {
         steps{
